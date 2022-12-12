@@ -1,0 +1,17 @@
+.outerbox{
+      display:grid;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      height: 100vh;
+      width: 100mh;
+      overflow: auto;
+}
+.Container {
+    /* display: grid; */
+    justify-content: center;
+    align-items: center;
+    height: 850px;
+    width: 1400px;
+
+}

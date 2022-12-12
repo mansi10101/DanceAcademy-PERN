@@ -1,0 +1,8 @@
+.bgimage{
+    height:auto;
+    background-size: cover;
+    background-repeat: no-repeat; 
+    z-index: -1;
+    overflow: hidden;
+    background-position: center;
+}
