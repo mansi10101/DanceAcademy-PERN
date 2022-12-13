@@ -2,7 +2,7 @@ import React from 'react'
 import styles from '../Stylesheet/Text.module.css'
 import Buttonlayout from './Buttons/Buttonlayout'
 
-const AboutText = () => {
+const AboutText = ({addEnForm , addChForm}) => {
   return (
     <div>
         <div className={styles.textarea}>
@@ -20,7 +20,7 @@ const AboutText = () => {
             </div>
         
         <div className={styles.bottonarea}>
-            <Buttonlayout/>
+            <Buttonlayout addEnForm = {addEnForm} addChForm = {addChForm} />
         </div>
     </div>
 

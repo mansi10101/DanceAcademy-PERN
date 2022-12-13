@@ -1,22 +1,21 @@
 import React from 'react'
 import Button from '@mui/material/Button';
 
-const EnrollButton = () => {
+const EnrollButton = ({buttonname,addEnForm}) => {
   return (
     <div>
-        <Button
+        <Button 
             sx={{
-                  borderRadius: 3, 
-                  fontSize: 25, 
-                  fontWeight:"bold",
-                  border: 2,
-                  ':hover': {
-                    bgcolor: 'info.main',
-                    color: 'white',
-                      },
-                    }}
-        variant="outlined" color='primary'>Enroll Now</Button>
-
+              borderRadius: 3, 
+              fontSize: 25, 
+              fontWeight:"bold",
+              border: 2,
+              ':hover': {
+                bgcolor: 'info.main',
+                color: 'white',
+                  }, 
+              }} 
+             variant="outlined"  color='primary' onClick={addEnForm}>{buttonname}</Button>
     </div>
   )
 }

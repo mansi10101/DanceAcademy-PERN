@@ -69,3 +69,15 @@
     align-items: center;
 }
 
+.formtitle {
+    display: flex;
+    font-size: 1.5rem;
+    font-weight: 600;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+    font-family:"roboto" ;
+    color: whitesmoke;
+    margin-top: 10px;
+}
+

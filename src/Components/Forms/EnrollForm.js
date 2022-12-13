@@ -2,15 +2,15 @@ import Button from "@mui/material/Button";
 import {Gender , Batch} from '../../utils/constants.js'
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import styles from '../../Stylesheet/Text.module.css'
 import FormField from './FormField';
 import { useState } from 'react';
 import SelectField from './SelectField';
+import FormTitle from "./FormTitle.js";
 
-const EnrollForm = () => {
+const EnrollForm = ({addAbout}) => {
   const [gender, setGender] = useState()
   const [batch, setBatch] = useState()
 
@@ -90,9 +90,10 @@ const EnrollForm = () => {
             alignItems: "center",
             color: 'white',
             width:"auto", height:"auto"
-          }}
-        >
-          <Typography component="h1" variant="h5" sx={{fontWeight:'bold', color:'white'}}> Registration Form </Typography>
+          }}>
+           
+          <FormTitle title ="Registration Form" addAbout={addAbout}  />
+
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -169,8 +170,9 @@ const EnrollForm = () => {
                                   fontWeight:"bold",
                                   marginTop: 2,
                                   border: 2,
+                                  bgcolor:"success.main",
                                   ':hover': {
-                                    bgcolor: 'info.main',
+                                    bgcolor: '',
                                     color: 'white',
                                       }, 
                                   }} 
@@ -186,7 +188,12 @@ const EnrollForm = () => {
                 fontSize: 25,
                 mt: 3, mb: 2,
                 border: 2,
-                bgcolor: 'info.main',
+                bgcolor:"info.main",
+                ':hover': {
+                  bgcolor: '',
+                  color: 'black',
+                  fontWeight: 20,
+                    }, 
             }}
               type="submit"
               fullWidth

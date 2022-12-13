@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from '@mui/material/Button';
 
-const CheckProfileButton = () => {
+const CheckButton = ({buttonname,addChForm}) => {
   return (
     <div>
         <Button 
@@ -15,9 +15,9 @@ const CheckProfileButton = () => {
                 color: 'white',
                   }, 
               }} 
-             variant="outlined">Already Enrolled ?</Button>
+             variant="outlined"  color='primary' onClick={addChForm}>{buttonname}</Button>
     </div>
   )
 }
 
-export default CheckProfileButton
+export default CheckButton

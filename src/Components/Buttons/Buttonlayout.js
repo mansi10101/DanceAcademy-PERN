@@ -2,11 +2,12 @@ import React from 'react'
 import styles from '../../Stylesheet/Text.module.css'
 import Stack from '@mui/material/Stack';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CheckButton from './CheckButton';
 import EnrollButton from './EnrollButton';
-import CheckProfileButton from './CheckProfileButton';
 
 
-const Buttonlayout = () => {
+
+const Buttonlayout = ({ addEnForm, addChForm}) => {
   let theme = createTheme({
     palette: {
       primary: {
@@ -20,8 +21,8 @@ const Buttonlayout = () => {
     <div className={styles.innerbuttonarea}>
       <ThemeProvider theme={theme}>
             <Stack direction="row" spacing={6}>
-                <EnrollButton/>
-                <CheckProfileButton/>  
+                <EnrollButton buttonname="Enroll Now" addEnForm={addEnForm} />
+                <CheckButton buttonname="Already Enrolled ?" addChForm ={addChForm} />
             </Stack>
             </ThemeProvider>
     </div>
