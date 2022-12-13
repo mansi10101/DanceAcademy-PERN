@@ -1,20 +1,31 @@
-import React from 'react'
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
+import {Gender , Batch} from '../../utils/constants.js'
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import styles from '../../Stylesheet/Text.module.css'
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import { FormControl } from '@mui/material';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import FormField from './FormField';
+import { useState } from 'react';
+import SelectField from './SelectField';
 
 const EnrollForm = () => {
+  const [gender, setGender] = useState()
+  const [batch, setBatch] = useState()
 
+  const[error,setError] = useState("");
+
+  function ValidateEmail(input) {
+
+    var validRegex =  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+     if (input.match(validRegex)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  
     const theme = createTheme(
       {
         palette: {
@@ -29,16 +40,49 @@ const EnrollForm = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-          email: data.get("email"),
-          password: data.get("password")
-        });
+        if(data.get("firstname") === undefined || data.get("firstname").length < 3) 
+        {
+          setError("Incorrect First Name !!")
+        }
+        else if(data.get("lastname") === undefined || data.get("lastname").length < 3) 
+        {
+          setError("Incorrect Last Name !!")
+        }
+        else if(!(ValidateEmail(data.get("email"))) || data.get("email") === undefined) 
+        {
+              setError("Invalid email address !!")
+        }
+        else if(data.get("phone") === undefined || !(/^[1-9]{1}[0-9]{9}$/.test(data.get("phone"))) ){
+              setError("Incorrect Mobile Number !!")
+        }
+        else if(data.get("age") === undefined || !(parseInt(data.get("age")) >= 18 && parseInt(data.get("age")) <= 65)){
+              setError("Invalid Age !!")
+        }
+        else if(gender === undefined) 
+        {
+          setError("Please Select Gender !!")
+        }
+        else if(batch === undefined) 
+        {
+          setError("Please Select Batch !!")
+        }
+        else{
+          setError("");
+          console.log({
+            firstname: data.get("firstname"),
+            lastname: data.get("lastname"),
+            email: data.get("email"),
+            phone: data.get("phone"),
+            age: data.get("age"),
+            gender: gender,
+            batch: batch
+          });
+        }
       };
   return (
     <div className={styles.formcontainer} >
         <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             display: "flex",
@@ -48,145 +92,76 @@ const EnrollForm = () => {
             width:"auto", height:"auto"
           }}
         >
-          <Typography component="h1" variant="h5" sx={{fontWeight:'bold', color:'white'}}> 
-            Registration Form
-          </Typography>
+          <Typography component="h1" variant="h5" sx={{fontWeight:'bold', color:'white'}}> Registration Form </Typography>
           <Box
             component="form"
             onSubmit={handleSubmit}
             noValidate
-            sx={{ mt: 2, mb: 2,color:'white',width:"auto", height:"auto"}}
+            sx={{color:'white'}}
           >
             <Grid container direction="row" spacing={2}>
                 <Grid item xs>
-                    <TextField
-                    sx={{"& .MuiInputLabel-root": {color: 'white'},//styles the label
-                    "& .MuiOutlinedInput-root": {
-                      "& > fieldset": { borderColor: "white" }}
-                    }}
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="name"
-                    label="First Name"
-                    name="name"
-                    />
+                    <FormField 
+                    label="First Name" 
+                    name="firstname" 
+                    id="name"/>
                 </Grid>
                 <Grid item xs>
-                    <TextField
-                    sx={{"& .MuiInputLabel-root": {color: 'white'},//styles the label
-                    "& .MuiOutlinedInput-root": {
-                      "& > fieldset": { borderColor: "white" }},
-                      input: { color: 'white' }
-                    }}
-                    margin="normal"
-                    required
-                    fullWidth
+                   <FormField
                     id="name"
                     label="Last Name"
-                    name="name"
+                    name="lastname"
                     />
                 </Grid>
             </Grid>
-            <TextField
-              sx={{"& .MuiInputLabel-root": {color: 'white'},
-                   "& .MuiOutlinedInput-root": {
-                   "& > fieldset": { borderColor: "white" }},
-                    input: { color: 'white' }
-              }}
-              margin = "normal"
-              required
-              fullWidth
+            <FormField
               id="email"
               label="Email Address"
               name="email"
             />
             
-            <TextField 
-            sx={{"& .MuiInputLabel-root": {color: 'white'},//styles the label
-            "& .MuiOutlinedInput-root": {
-              "& > fieldset": { borderColor: "white" }}, 
-              input: { color: 'white' }
-            }}
-              margin="normal"
-              required
-              fullWidth
+            <FormField 
               id="mobile"
               label="Mobile Number"
               name="phone"
             />
             <Grid container direction="row" spacing={3}>
               <Grid item sx={{width:260}}>
-                      <TextField
-                        sx={{"& .MuiInputLabel-root": {color: 'white'},//styles the label
-                        "& .MuiOutlinedInput-root": {
-                          "& > fieldset": { borderColor: "white" }},
-                          input: { color: 'white'},
-                        }}
-                        margin="normal"
-                        required
-                        fullWidth
+                      <FormField
                         id="age"
                         label="Age"
                         name="age"
                       />
                   </Grid>
                   <Grid item sx={{align:"right"}}>
-                  <Box sx={{ minWidth: 130, marginTop:2}}>
-                       <FormControl fullWidth 
-                          sx={{"& .MuiInputLabel-root": {color: 'white'},//styles the label
-                              "& .MuiOutlinedInput-root": {
-                                "& > fieldset": { borderColor: "white" }},
-                                input: { color: 'white'},
-                              }}>
-                          <InputLabel id="demo-simple-select-label">Gender</InputLabel>
-                          <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            fullWidth
-                            sx={{color:"white"}}
-                            // value={age}
-                            label="gender"
-                            // onChange={handleChange}
-                          >
-                            <MenuItem value={67}> Female</MenuItem>
-                            <MenuItem value={78}>Male</MenuItem>
-                            <MenuItem value={89}>Others</MenuItem>
-                          </Select>
-                        </FormControl>
-                      </Box>
+                      <Box sx={{ minWidth: 130, marginTop:2}}>
+                        <SelectField
+                                id="gender"
+                                label="Gender"
+                                value = {gender}
+                                onChange = {(e) => setGender(e.target.value)}
+                                options = {Gender}
+                                fullWidth
+                                sx={{color:"white"}} 
+                              />
+                        </Box>
                   </Grid>
                 </Grid>
                 <Box sx={{ minWidth: 120, marginTop: 2}}>
-                <FormControl fullWidth 
-                          sx={{"& .MuiInputLabel-root": {color: 'white'},//styles the label
-                              "& .MuiOutlinedInput-root": {
-                                "& > fieldset": { borderColor: "white" }},
-                                input: { color: 'white'},
-                              }}>
-                          <InputLabel id="demo-simple-select-label" required>Batch</InputLabel>
-                          <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            fullWidth
-                            
+                <SelectField fullWidth
+                            label="Batch"
+                            id="batch"
+                            value = {batch}
+                            onChange = {(e) => setBatch(e.target.value)}
+                            options={Batch}
                             sx={{color:"white"}}
-                            // value={age}
-                            label="Age"
-                            // onChange={handleChange}
-                          >
-                            <MenuItem value={67}>6 to 7am</MenuItem>
-                            <MenuItem value={78}>7 to 8am</MenuItem>
-                            <MenuItem value={89}>8 to 9am</MenuItem>
-                            <MenuItem value={56}>5 to 6pm</MenuItem>
-                          </Select>
-                        </FormControl>
+                          />
                         </Box>
 
-                    <Grid container direction="row" spacing={2}>
-                       <Grid item xs>
-                          <h3 className={styles.text} >Fess:   500/-</h3>
-                      </Grid>
+            <Grid container direction="row" spacing={2}>
+                <Grid item xs>
+                    <h3 className={styles.text} >Fess:   500/-</h3>
+                </Grid>
                           <Grid item xs>
                           <Button  
                                 sx={{ 
@@ -202,7 +177,9 @@ const EnrollForm = () => {
                                 variant="outlined">Pay Now</Button>
                 </Grid>
             </Grid>
-                         
+
+            {error}
+
             <Button
             sx={{
                 fontWeight:"bold",
