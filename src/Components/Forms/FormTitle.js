@@ -24,8 +24,6 @@ const FormTitle = ({ title, addAbout }) => {
       >
         Close
       </Button>
-
-      {/* {currentvalue ? <button className="btn" style={{backgroundColor:"red"}} onClick={addform}>Close</button> : <button className="btn" onClick={addform}>Add</button>} */}
     </div>
   );
 };
