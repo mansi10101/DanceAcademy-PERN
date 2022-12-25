@@ -1,7 +1,7 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
 
-const FormField = ({ label, name, id }) => {
+const FormField = ({ onChange, defaultValue, name, label, id }) => {
   return (
     <div>
       <TextField
@@ -16,8 +16,10 @@ const FormField = ({ label, name, id }) => {
         required
         fullWidth
         id={id}
-        label={label}
+        onChange={onChange}
+        defaultValue={defaultValue}
         name={name}
+        label={label}
       />
     </div>
   );

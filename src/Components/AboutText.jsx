@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../Stylesheet/Text.module.css";
-import Buttonlayout from "./Buttons/Buttonlayout";
+import AboutButtonlayout from "./Buttons/AboutButtonlayout";
 
 const AboutText = ({ addEnForm, addChForm }) => {
   return (
@@ -25,7 +25,7 @@ const AboutText = ({ addEnForm, addChForm }) => {
       </div>
 
       <div className={styles.bottonarea}>
-        <Buttonlayout addEnForm={addEnForm} addChForm={addChForm} />
+        <AboutButtonlayout addEnForm={addEnForm} addChForm={addChForm} />
       </div>
     </div>
   );
