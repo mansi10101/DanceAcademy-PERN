@@ -13,6 +13,8 @@ const EditModal = ({ setsection, emailid, onClose, open, getdetails }) => {
     bgcolor: "black",
     border: "2px solid #000",
     boxShadow: 24,
+    maxHeight: '90vh',
+    overflow:"auto"
   };
   return (
     <Modal

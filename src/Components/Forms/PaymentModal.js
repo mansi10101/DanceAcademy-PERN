@@ -1,9 +1,10 @@
+import { ConstructionOutlined } from "@mui/icons-material";
 import { Box, Button, Container, Modal, TextField } from "@mui/material";
 import React, { useState } from "react";
 import styles from "../../Stylesheet/Text.module.css";
 import { validateAccNo } from "../../utils/helper";
 
-const PaymentModal = ({ onClose, open, response, email }) => {
+const PaymentModal = ({ onClose, open, response, email = undefined }) => {
   const [error, setError] = useState();
   const [account, setAccount] = useState("");
 
@@ -22,22 +23,21 @@ const PaymentModal = ({ onClose, open, response, email }) => {
   };
 
   const completePayment = async () => {
-    if (validateAccNo(account)) {
+    if (email === undefined && validateAccNo(account)) {
       response();
-
-      if (response()) {
-        const updatepay = await fetch(
-          `http://localhost:5000/userdetails/${email}/pay`,
-          {
-            method: "PUT",
-          }
-        );
-        console.log(updatepay);
-        setError({
-          message: "Payment SuccessFull",
-          color: "green",
-        });
-      }
+    } else if (email !== undefined && validateAccNo(account)) {
+      const updatepay = await fetch(
+        `http://localhost:5000/userdetails/${email}/pay`,
+        {
+          method: "PUT",
+        }
+      );
+      response();
+      console.log(updatepay);
+      setError({
+        message: "Payment SuccessFull",
+        color: "green",
+      });
     } else {
       setError({
         message: "Invalid Account Number !!",
@@ -45,6 +45,21 @@ const PaymentModal = ({ onClose, open, response, email }) => {
       });
     }
   };
+
+  //   const completePayment = async () => {
+  //     if (validateAccNo(account)) {
+  //       response();
+
+  //       if (response()) {
+  //
+  //       }
+  //     } else {
+  //       setError({
+  //         message: "Invalid Account Number !!",
+  //         color: "red",
+  //       });
+  //     }
+  //   };
 
   return (
     <Modal
