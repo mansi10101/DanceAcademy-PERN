@@ -4,7 +4,7 @@ import styles from "../Stylesheet/Text.module.css";
 const Title = () => {
   return (
     <div className={styles.title}>
-      <h2>Yoga Classes</h2>
+      <h2>Dance Academy </h2>
     </div>
   );
 };
